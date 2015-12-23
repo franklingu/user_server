@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 sudo yum -y update
 sudo yum -y groupinstall "Development Tools"
-sudo yum -y install cmake gcc-c++ gcc make zlib-devel pcre-devel libicu-devel libgcrypt-devel
+sudo yum -y install cmake gcc-c++ gcc make zlib-devel pcre-devel libicu-devel libgcrypt-devel vim
 sudo yum -y install epel-release
 sudo yum -y install nginx
 # firewall-cmd --permanent --zone=public --add-service=http  # allow http
