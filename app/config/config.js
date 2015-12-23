@@ -5,5 +5,10 @@
     },
     "http" : {
         "script_names" : [ "/hello" ]
+    },
+    "file_server" : {
+        "enable" : true,
+        "listing" : true,
+        "document_root" : "./uploads"
     }
 }
