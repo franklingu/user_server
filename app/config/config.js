@@ -6,6 +6,11 @@
     "http" : {
         "script_names" : [ "/hello" ]
     },
+    "security" : {
+        "csrf" : {
+            "enable" : false
+        }
+    },
     "file_server" : {
         "enable" : true,
         "listing" : true,

@@ -6,7 +6,6 @@
 
 #include <iostream>
 
-
 namespace upload_form  {
     struct file_form : public cppcms::form {
         cppcms::widgets::file image;
@@ -45,7 +44,6 @@ namespace upload_form  {
     struct upload : public cppcms::base_content {
         file_form info;
     };
-
 }
 
 #endif

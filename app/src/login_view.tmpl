@@ -1,0 +1,19 @@
+<% c++ #include "login_message.h" %>
+<% skin view %>
+<% view login uses login_message::user_message %>
+<% template render() %>
+<html>
+  <head>
+  	<title>Welcome</title>
+  </head>
+  <body>
+    <h1>Hello, <%= username %></h1>
+    <ul>
+      <li><a href="">Update picture</a></li>
+      <li><a href="">Update nickname</a></li>
+    </ul>
+  </body>
+<html>
+<% end template %>
+<% end view %>
+<% end skin %>

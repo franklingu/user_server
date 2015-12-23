@@ -1,0 +1,17 @@
+<% c++ #include "login_form.h" %>
+<% skin view %>
+<% view welcome uses login_form::user_login %>
+<% template render() %>
+<html>
+  <head>
+  	<title>Welcome</title>
+  </head>
+  <body>
+    <form method="post" action="./hello/login">
+      <% form as_p info %>
+    </form>
+  </body>
+<html>
+<% end template %>
+<% end view %>
+<% end skin %>

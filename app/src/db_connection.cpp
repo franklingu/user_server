@@ -1,7 +1,4 @@
-#include <my_global.h>
-#include <mysql.h>
-#include <iostream>
-#include <string>
+#include "db_connection.h"
 
 using namespace std;
 
@@ -75,10 +72,6 @@ void update_user_nickname(string username, string nickname)
     execute_query(con, query.c_str());
 
     mysql_close(con);
-}
-
-void update_profile_pic()
-{
 }
 
 // int main()

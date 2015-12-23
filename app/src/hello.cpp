@@ -8,7 +8,10 @@
 #include <iostream>
 #include <stdlib.h>
 
+#include "login_form.h"
 #include "upload_form.h"
+#include "update_nick_form.h"
+#include "login_message.h"
 
 class hello : public cppcms::application {
 public:
@@ -18,16 +21,16 @@ public:
         dispatcher().assign("/login", &hello::login, this);
         mapper().assign("login","/login");
 
-        dispatcher().assign("/updatenick", &hello::update_nickname, this);
-        mapper().assign("updatenick","/updatenick");
+        dispatcher().assign("/update_nick", &hello::update_nickname, this);
+        mapper().assign("update_nick","/update_nick");
 
-        dispatcher().assign("/updatepic", &hello::update_pic, this);
-        mapper().assign("updatepic","/updatepic");
+        dispatcher().assign("/update_pic", &hello::update_pic, this);
+        mapper().assign("update_pic","/update_pic");
 
-        dispatcher().assign("/", &hello::welcome, this);
-        mapper().assign("");
+        dispatcher().assign("/welcome", &hello::welcome, this);
+        mapper().assign("welcome", "/welcome");
 
-        mapper().root("hello");
+        mapper().root("/hello");
     }
     void login();
     void update_nickname();
@@ -37,62 +40,52 @@ public:
 
 void hello::login()
 {
-    response().out() <<
-        "<html><head><title>Welcome to user sys</title></head>"
-        "<body><h1>Login!</h1></body></html>";
+    login_message::user_message m;
+    m.username = "1";
+    render("login", m);
 }
 
 void hello::update_nickname()
 {
-    response().out() <<
-        "<html><head><title>Welcome to user sys</title></head>"
-        "<body><h1>Update nickname!</h1></body></html>";
+    update_nick_form::update_nick n;
+    if (request().request_method() == "POST") {
+        n.info.load(context());
+        if (n.info.validate())
+        {
+            // processing
+        }
+    }
+    render("update_nick", n);
 }
 
 void hello::update_pic()
 {
     upload_form::upload c;
-    if (request().request_method()=="POST") {
+    if (request().request_method() == "POST")
+    {
         c.info.load(context());
-        if (c.info.validate()) {
-            // Create file name
-            //
-            // Note:
-            // NEVER, NEVER, NEVER use user supplied file name!
-            //
-            // Use it to display or for general information only.
-            //
-            // If you would try to save the file under user supplied name you
-            // may open yourself to multiple security issues like directory
-            // traversal and more.
-            //
-            // So create your own name. If you want to keep the connection with original
-            // name you may use sha1 hash and then save it.
-            //
+        if (c.info.validate())
+        {
             std::string new_name = "latest_image";
             if(c.info.image.value()->mime() == "image/png")
+            {
                 new_name += ".png";
+            }
             else
+            {
                 new_name += ".jpg"; // we had validated mime-type
-
-            //
-            // Note: save_to is more efficient then reading file from
-            // c.info.image.value()->data() stream and writing it
-            // as save to would try to move the saved file over file-system
-            // and it would be more efficient.
-            //
+            }
             c.info.image.value()->save_to("./uploads/" + new_name);
             c.info.clear();
         }
     }
-    render("upload",c);
+    render("upload", c);
 }
 
 void hello::welcome()
 {
-    response().out() <<
-        "<html><head><title>Welcome to user sys</title></head>"
-        "<body><h1>Welcome!</h1></body></html>";
+    login_form::user_login u;
+    render("welcome", u);
 }
 
 int main(int argc,char ** argv)
